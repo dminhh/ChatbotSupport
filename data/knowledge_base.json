@@ -1,0 +1,147 @@
+{
+  "categories": [
+    {
+      "id": "shipping",
+      "name": "Vận chuyển & Giao hàng",
+      "questions": [
+        {
+          "question": "Thời gian giao hàng mất bao lâu?",
+          "answer": "Thời gian giao hàng phụ thuộc vào khu vực:\n- Nội thành Hà Nội, TP.HCM: 1-2 ngày làm việc\n- Các tỉnh thành khác: 3-5 ngày làm việc\n- Vùng xa, miền núi: 5-7 ngày làm việc\nĐơn hàng được đặt trước 14h sẽ được xử lý trong ngày.",
+          "keywords": ["giao hàng", "ship", "thời gian", "bao lâu", "nhận hàng"]
+        },
+        {
+          "question": "Phí vận chuyển là bao nhiêu?",
+          "answer": "Chính sách phí vận chuyển:\n- Miễn phí ship cho đơn hàng từ 500.000đ trở lên\n- Đơn hàng dưới 500.000đ: phí ship 30.000đ (nội thành), 50.000đ (ngoại thành)\n- Áp dụng miễn phí ship toàn quốc cho đơn từ 1.000.000đ",
+          "keywords": ["phí ship", "phí vận chuyển", "tiền ship", "free ship", "miễn phí"]
+        },
+        {
+          "question": "Làm sao để theo dõi đơn hàng?",
+          "answer": "Bạn có thể theo dõi đơn hàng bằng cách:\n1. Đăng nhập tài khoản > Đơn hàng của tôi\n2. Nhập mã đơn hàng trong email xác nhận\n3. Liên hệ hotline: 1900xxxx với mã đơn hàng\nBạn sẽ nhận được mã vận đơn qua email/SMS khi hàng được giao cho đơn vị vận chuyển.",
+          "keywords": ["theo dõi", "tracking", "kiểm tra đơn", "trạng thái đơn", "mã vận đơn"]
+        }
+      ]
+    },
+    {
+      "id": "payment",
+      "name": "Thanh toán",
+      "questions": [
+        {
+          "question": "Có những phương thức thanh toán nào?",
+          "answer": "Chúng tôi hỗ trợ các phương thức thanh toán:\n1. COD (thanh toán khi nhận hàng)\n2. Chuyển khoản ngân hàng\n3. Ví điện tử: MoMo, ZaloPay, VNPay\n4. Thẻ ATM nội địa/Thẻ tín dụng (Visa, Mastercard)\n5. Trả góp qua thẻ tín dụng (đơn từ 3 triệu)",
+          "keywords": ["thanh toán", "payment", "trả tiền", "COD", "chuyển khoản", "ví điện tử"]
+        },
+        {
+          "question": "Có được trả góp không?",
+          "answer": "Có, chúng tôi hỗ trợ trả góp:\n- Trả góp 0% qua thẻ tín dụng (đơn từ 3 triệu)\n- Kỳ hạn: 3, 6, 9, 12 tháng\n- Ngân hàng hỗ trợ: VPBank, FE Credit, Home Credit, Sacombank, Techcombank\n- Cần CMND/CCCD, không cần chứng minh thu nhập",
+          "keywords": ["trả góp", "góp", "installment", "lãi suất", "ngân hàng"]
+        },
+        {
+          "question": "Có được xuất hóa đơn VAT không?",
+          "answer": "Có, chúng tôi xuất hóa đơn VAT theo yêu cầu:\n- Cung cấp thông tin công ty khi đặt hàng\n- Hóa đơn được gửi kèm hàng hoặc qua email\n- Yêu cầu xuất hóa đơn phải được gửi trong vòng 7 ngày kể từ khi nhận hàng",
+          "keywords": ["hóa đơn", "VAT", "đỏ", "công ty", "xuất hóa đơn"]
+        }
+      ]
+    },
+    {
+      "id": "return_policy",
+      "name": "Đổi trả & Hoàn tiền",
+      "questions": [
+        {
+          "question": "Chính sách đổi trả như thế nào?",
+          "answer": "Chính sách đổi trả 30 ngày:\n- Sản phẩm còn nguyên tem mác, chưa qua sử dụng\n- Có hóa đơn mua hàng\n- Miễn phí đổi size/màu trong 7 ngày đầu\n- Hoàn tiền 100% nếu lỗi từ nhà sản xuất\n- Đổi sản phẩm tương đương hoặc hoàn tiền nếu không còn hàng",
+          "keywords": ["đổi trả", "return", "hoàn hàng", "refund", "trả hàng"]
+        },
+        {
+          "question": "Sản phẩm lỗi được xử lý thế nào?",
+          "answer": "Với sản phẩm lỗi:\n- Đổi mới ngay trong 7 ngày đầu (lỗi nhà sản xuất)\n- Chúng tôi chịu toàn bộ phí ship đổi trả\n- Bảo hành theo chính sách nhà sản xuất từ ngày 8 trở đi\n- Hoàn tiền 100% nếu không thể đổi hoặc sửa\nLiên hệ ngay để được hỗ trợ nhanh nhất.",
+          "keywords": ["lỗi", "hỏng", "bể", "vỡ", "không dùng được", "defect"]
+        },
+        {
+          "question": "Khi nào tôi nhận được tiền hoàn?",
+          "answer": "Thời gian hoàn tiền:\n- Qua ví điện tử: 1-3 ngày làm việc\n- Chuyển khoản ngân hàng: 3-5 ngày làm việc\n- Hoàn vào thẻ tín dụng: 5-7 ngày làm việc\nThời gian tính từ khi chúng tôi nhận được hàng hoàn trả và xác nhận đủ điều kiện.",
+          "keywords": ["hoàn tiền", "refund", "tiền về", "chuyển khoản"]
+        }
+      ]
+    },
+    {
+      "id": "account",
+      "name": "Tài khoản & Bảo mật",
+      "questions": [
+        {
+          "question": "Làm sao để đăng ký tài khoản?",
+          "answer": "Đăng ký tài khoản rất đơn giản:\n1. Click 'Đăng ký' ở góc phải trên cùng\n2. Nhập email/số điện thoại và mật khẩu\n3. Xác nhận qua OTP được gửi về email/SMS\n4. Hoàn tất! Bạn có thể đăng nhập ngay\nHoặc đăng nhập nhanh qua Facebook/Google.",
+          "keywords": ["đăng ký", "tạo tài khoản", "register", "sign up"]
+        },
+        {
+          "question": "Quên mật khẩu thì làm sao?",
+          "answer": "Để lấy lại mật khẩu:\n1. Click 'Quên mật khẩu' tại trang đăng nhập\n2. Nhập email/số điện thoại đã đăng ký\n3. Nhận mã OTP qua email/SMS\n4. Nhập OTP và tạo mật khẩu mới\nNếu không nhận được OTP, kiểm tra hộp thư spam hoặc liên hệ hotline.",
+          "keywords": ["quên mật khẩu", "forgot password", "reset password", "đổi mật khẩu"]
+        },
+        {
+          "question": "Thông tin cá nhân có được bảo mật không?",
+          "answer": "Chúng tôi cam kết bảo mật thông tin:\n- Mã hóa SSL 256-bit cho mọi giao dịch\n- Không chia sẻ thông tin với bên thứ 3 khi chưa có sự đồng ý\n- Tuân thủ chính sách bảo mật dữ liệu cá nhân\n- Bạn có quyền yêu cầu xóa dữ liệu cá nhân bất kỳ lúc nào",
+          "keywords": ["bảo mật", "an toàn", "security", "privacy", "thông tin cá nhân"]
+        }
+      ]
+    },
+    {
+      "id": "products",
+      "name": "Sản phẩm & Dịch vụ",
+      "questions": [
+        {
+          "question": "Làm sao để tìm sản phẩm phù hợp?",
+          "answer": "Để tìm sản phẩm dễ dàng:\n- Sử dụng thanh tìm kiếm với từ khóa\n- Lọc theo danh mục, giá, thương hiệu, kích thước\n- Xem phần 'Gợi ý cho bạn' dựa trên lịch sử\n- Đọc đánh giá và rating từ người mua khác\n- Liên hệ tư vấn qua chat hoặc hotline",
+          "keywords": ["tìm sản phẩm", "search", "lọc", "filter", "tìm kiếm"]
+        },
+        {
+          "question": "Sản phẩm có chính hãng không?",
+          "answer": "Cam kết 100% hàng chính hãng:\n- Nhập khẩu trực tiếp từ nhà sản xuất/đại lý ủy quyền\n- Có tem chống hàng giả\n- Bảo hành chính hãng toàn quốc\n- Hoàn tiền 200% nếu phát hiện hàng giả\n- Có hóa đơn VAT đầy đủ",
+          "keywords": ["chính hãng", "authentic", "hàng giả", "hàng fake", "tem"]
+        },
+        {
+          "question": "Sản phẩm được bảo hành như thế nào?",
+          "answer": "Chính sách bảo hành:\n- Bảo hành chính hãng từ nhà sản xuất (6-24 tháng tùy sản phẩm)\n- Bảo hành tại các trung tâm ủy quyền toàn quốc\n- Đổi mới trong 1 tháng nếu lỗi nhà sản xuất\n- Hỗ trợ gửi bảo hành miễn phí qua đường chuyển phát\nGiữ hóa đơn và phiếu bảo hành để được hỗ trợ tốt nhất.",
+          "keywords": ["bảo hành", "warranty", "guarantee", "sửa chữa"]
+        }
+      ]
+    },
+    {
+      "id": "promotions",
+      "name": "Khuyến mãi & Ưu đãi",
+      "questions": [
+        {
+          "question": "Làm sao để nhận mã giảm giá?",
+          "answer": "Nhận mã giảm giá qua:\n1. Đăng ký nhận email/SMS khuyến mãi\n2. Theo dõi fanpage Facebook, Zalo Official\n3. Tích điểm khi mua hàng đổi voucher\n4. Mã tự động hiển thị khi đặt hàng (nếu đủ điều kiện)\n5. Chương trình khuyến mãi đặc biệt trong các dịp lễ\nMã giảm giá có thời hạn sử dụng, hãy kiểm tra kỹ điều kiện áp dụng.",
+          "keywords": ["mã giảm giá", "voucher", "coupon", "khuyến mãi", "discount"]
+        },
+        {
+          "question": "Có chương trình tích điểm không?",
+          "answer": "Có! Chương trình khách hàng thân thiết:\n- Tích 1 điểm cho mỗi 10.000đ chi tiêu\n- 100 điểm = voucher 100.000đ\n- Điểm tích lũy trong 12 tháng\n- Hạng thành viên: Bạc, Vàng, Kim cương (ưu đãi tăng dần)\n- Sinh nhật được tặng voucher đặc biệt\nĐăng ký tài khoản để bắt đầu tích điểm ngay!",
+          "keywords": ["tích điểm", "point", "loyalty", "thành viên", "membership"]
+        }
+      ]
+    },
+    {
+      "id": "contact",
+      "name": "Liên hệ & Hỗ trợ",
+      "questions": [
+        {
+          "question": "Liên hệ hỗ trợ qua kênh nào?",
+          "answer": "Bạn có thể liên hệ qua:\n- Hotline: 1900xxxx (8h-22h hàng ngày)\n- Email: support@example.com\n- Chat trực tuyến trên website (9h-21h)\n- Facebook Messenger\n- Zalo Official Account\nChúng tôi cam kết phản hồi trong 24h.",
+          "keywords": ["liên hệ", "contact", "hotline", "email", "hỗ trợ", "support"]
+        },
+        {
+          "question": "Có cửa hàng trực tiếp không?",
+          "answer": "Có! Hệ thống cửa hàng:\n- Hà Nội: 123 Phố Huế, Hai Bà Trưng (8h-21h)\n- TP.HCM: 456 Nguyễn Trãi, Quận 1 (8h-21h)\n- Đà Nẵng: 789 Lê Duẩn, Hải Châu (8h-21h)\nKhách hàng có thể đến trực tiếp để xem sản phẩm, tư vấn, mua hàng hoặc đổi trả.",
+          "keywords": ["cửa hàng", "store", "địa chỉ", "showroom", "offline"]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2025-12-15",
+    "language": "vi",
+    "total_questions": 20
+  }
+}
