@@ -1,3 +1,4 @@
+
 {
   "categories": [
     {
@@ -5,19 +6,24 @@
       "name": "Vận chuyển & Giao hàng",
       "questions": [
         {
-          "question": "Thời gian giao hàng mất bao lâu?",
-          "answer": "Thời gian giao hàng phụ thuộc vào khu vực:\n- Nội thành Hà Nội, TP.HCM: 1-2 ngày làm việc\n- Các tỉnh thành khác: 3-5 ngày làm việc\n- Vùng xa, miền núi: 5-7 ngày làm việc\nĐơn hàng được đặt trước 14h sẽ được xử lý trong ngày.",
-          "keywords": ["giao hàng", "ship", "thời gian", "bao lâu", "nhận hàng"]
+          "question": "Trạng thái đơn hàng có những loại nào?",
+          "answer": "Đơn hàng của bạn sẽ trải qua các trạng thái:\n1. CHỜ XÁC NHẬN - Đơn hàng vừa được tạo, chờ shop xác nhận\n2. CHỜ VẬN CHUYỂN - Đơn đã được xác nhận, đang chuẩn bị hàng\n3. ĐANG GIAO - Đơn vị vận chuyển đang giao hàng\n4. GIAO HÀNG THÀNH CÔNG - Bạn đã nhận được hàng\n5. HỦY HÀNG - Đơn hàng đã bị hủy\n6. HÀNG HOÀN - Hàng bị hoàn trả về shop\n\nLưu ý: Đơn hàng ở trạng thái 'Chờ xác nhận' quá 48 giờ sẽ tự động bị hủy.",
+          "keywords": ["trạng thái", "đơn hàng", "status", "order", "tracking", "theo dõi"]
         },
         {
-          "question": "Phí vận chuyển là bao nhiêu?",
-          "answer": "Chính sách phí vận chuyển:\n- Miễn phí ship cho đơn hàng từ 500.000đ trở lên\n- Đơn hàng dưới 500.000đ: phí ship 30.000đ (nội thành), 50.000đ (ngoại thành)\n- Áp dụng miễn phí ship toàn quốc cho đơn từ 1.000.000đ",
-          "keywords": ["phí ship", "phí vận chuyển", "tiền ship", "free ship", "miễn phí"]
+          "question": "Đơn hàng tự động hủy sau bao lâu?",
+          "answer": "Đơn hàng ở trạng thái CHỜ XÁC NHẬN sẽ tự động bị hủy sau 48 giờ (2 ngày) nếu không được xác nhận.\n\nKhi đơn hàng bị hủy:\n- Số lượng sản phẩm được trả lại kho\n- Bạn sẽ nhận được thông báo qua hệ thống\n- Có thể đặt lại đơn hàng mới bất kỳ lúc nào",
+          "keywords": ["hủy đơn", "tự động hủy", "48 giờ", "cancel", "timeout"]
         },
         {
           "question": "Làm sao để theo dõi đơn hàng?",
-          "answer": "Bạn có thể theo dõi đơn hàng bằng cách:\n1. Đăng nhập tài khoản > Đơn hàng của tôi\n2. Nhập mã đơn hàng trong email xác nhận\n3. Liên hệ hotline: 1900xxxx với mã đơn hàng\nBạn sẽ nhận được mã vận đơn qua email/SMS khi hàng được giao cho đơn vị vận chuyển.",
-          "keywords": ["theo dõi", "tracking", "kiểm tra đơn", "trạng thái đơn", "mã vận đơn"]
+          "answer": "Bạn có thể theo dõi đơn hàng bằng cách:\n1. Đăng nhập tài khoản > Menu 'Đơn hàng của tôi'\n2. Lọc theo trạng thái để xem đơn hàng cụ thể\n3. Xem chi tiết từng sản phẩm trong đơn\n4. Nhận thông báo real-time khi đơn hàng thay đổi trạng thái\n\nHệ thống sẽ tự động gửi thông báo qua WebSocket khi có cập nhật.",
+          "keywords": ["theo dõi", "tracking", "kiểm tra đơn", "trạng thái đơn", "xem đơn hàng"]
+        },
+        {
+          "question": "Làm sao để hủy đơn hàng?",
+          "answer": "Để hủy đơn hàng:\n1. Vào 'Đơn hàng của tôi'\n2. Chọn đơn hàng muốn hủy\n3. Nhấn nút 'Hủy đơn'\n\nLưu ý:\n- Chỉ hủy được khi đơn ở trạng thái CHỜ XÁC NHẬN hoặc CHỜ VẬN CHUYỂN\n- Đơn đã ĐANG GIAO không thể hủy (chỉ có thể từ chối nhận hàng)\n- Số lượng sản phẩm sẽ được hoàn lại kho ngay lập tức",
+          "keywords": ["hủy đơn", "cancel order", "hủy hàng"]
         }
       ]
     },
@@ -27,17 +33,22 @@
       "questions": [
         {
           "question": "Có những phương thức thanh toán nào?",
-          "answer": "Chúng tôi hỗ trợ các phương thức thanh toán:\n1. COD (thanh toán khi nhận hàng)\n2. Chuyển khoản ngân hàng\n3. Ví điện tử: MoMo, ZaloPay, VNPay\n4. Thẻ ATM nội địa/Thẻ tín dụng (Visa, Mastercard)\n5. Trả góp qua thẻ tín dụng (đơn từ 3 triệu)",
-          "keywords": ["thanh toán", "payment", "trả tiền", "COD", "chuyển khoản", "ví điện tử"]
+          "answer": "Hiện tại hệ thống hỗ trợ thanh toán qua VNPay:\n- Thẻ ATM nội địa có Internet Banking\n- Thẻ tín dụng/ghi nợ quốc tế (Visa, Mastercard, JCB)\n- Quét mã QR VNPay\n\nSau khi đặt hàng, bạn sẽ được chuyển đến trang thanh toán VNPay. Đơn hàng chỉ được xác nhận sau khi thanh toán thành công.",
+          "keywords": ["thanh toán", "payment", "VNPay", "ATM", "visa", "mastercard", "QR"]
         },
         {
-          "question": "Có được trả góp không?",
-          "answer": "Có, chúng tôi hỗ trợ trả góp:\n- Trả góp 0% qua thẻ tín dụng (đơn từ 3 triệu)\n- Kỳ hạn: 3, 6, 9, 12 tháng\n- Ngân hàng hỗ trợ: VPBank, FE Credit, Home Credit, Sacombank, Techcombank\n- Cần CMND/CCCD, không cần chứng minh thu nhập",
-          "keywords": ["trả góp", "góp", "installment", "lãi suất", "ngân hàng"]
+          "question": "Thanh toán VNPay có an toàn không?",
+          "answer": "VNPay là cổng thanh toán được cấp phép bởi Ngân hàng Nhà nước Việt Nam, đảm bảo:\n- Mã hóa dữ liệu chuẩn quốc tế PCI-DSS\n- Xác thực OTP từ ngân hàng\n- Không lưu trữ thông tin thẻ\n- Giao dịch được bảo mật 100%\n\nSau khi thanh toán thành công, hệ thống tự động cập nhật trạng thái đơn hàng.",
+          "keywords": ["an toàn", "bảo mật", "VNPay", "security", "OTP"]
+        },
+        {
+          "question": "Thanh toán thất bại thì sao?",
+          "answer": "Nếu thanh toán thất bại:\n- Đơn hàng vẫn được tạo nhưng ở trạng thái CHƯA THANH TOÁN\n- Bạn có thể thử thanh toán lại\n- Nếu không thanh toán trong 48 giờ, đơn sẽ tự động hủy\n- Số tiền sẽ KHÔNG bị trừ khỏi tài khoản\n\nNếu tiền bị trừ nhưng giao dịch thất bại, ngân hàng sẽ tự động hoàn tiền trong 3-5 ngày làm việc.",
+          "keywords": ["thanh toán thất bại", "payment failed", "lỗi thanh toán", "không thanh toán được"]
         },
         {
           "question": "Có được xuất hóa đơn VAT không?",
-          "answer": "Có, chúng tôi xuất hóa đơn VAT theo yêu cầu:\n- Cung cấp thông tin công ty khi đặt hàng\n- Hóa đơn được gửi kèm hàng hoặc qua email\n- Yêu cầu xuất hóa đơn phải được gửi trong vòng 7 ngày kể từ khi nhận hàng",
+          "answer": "Có, hệ thống hỗ trợ xuất hóa đơn VAT:\n- Cung cấp thông tin công ty khi đặt hàng\n- Hóa đơn được gửi kèm hàng hoặc qua email\n- Yêu cầu xuất hóa đơn phải được gửi trong vòng 7 ngày kể từ khi nhận hàng\n\nThông tin cần có: Tên công ty, Mã số thuế, Địa chỉ công ty, Email nhận hóa đơn",
           "keywords": ["hóa đơn", "VAT", "đỏ", "công ty", "xuất hóa đơn"]
         }
       ]
@@ -48,18 +59,18 @@
       "questions": [
         {
           "question": "Chính sách đổi trả như thế nào?",
-          "answer": "Chính sách đổi trả 30 ngày:\n- Sản phẩm còn nguyên tem mác, chưa qua sử dụng\n- Có hóa đơn mua hàng\n- Miễn phí đổi size/màu trong 7 ngày đầu\n- Hoàn tiền 100% nếu lỗi từ nhà sản xuất\n- Đổi sản phẩm tương đương hoặc hoàn tiền nếu không còn hàng",
-          "keywords": ["đổi trả", "return", "hoàn hàng", "refund", "trả hàng"]
+          "answer": "Chính sách đổi trả:\n- Đổi trả trong vòng 7 ngày kể từ ngày nhận hàng\n- Sản phẩm còn nguyên tem mác, chưa qua sử dụng\n- Có hóa đơn mua hàng\n- Miễn phí đổi size/màu (nếu còn hàng)\n\nĐể đổi trả:\n1. Vào 'Đơn hàng của tôi'\n2. Chọn đơn cần đổi trả\n3. Chọn lý do và yêu cầu đổi/trả\n4. Chờ xác nhận từ shop",
+          "keywords": ["đổi trả", "return", "hoàn hàng", "refund", "trả hàng", "đổi size", "đổi màu"]
         },
         {
           "question": "Sản phẩm lỗi được xử lý thế nào?",
-          "answer": "Với sản phẩm lỗi:\n- Đổi mới ngay trong 7 ngày đầu (lỗi nhà sản xuất)\n- Chúng tôi chịu toàn bộ phí ship đổi trả\n- Bảo hành theo chính sách nhà sản xuất từ ngày 8 trở đi\n- Hoàn tiền 100% nếu không thể đổi hoặc sửa\nLiên hệ ngay để được hỗ trợ nhanh nhất.",
-          "keywords": ["lỗi", "hỏng", "bể", "vỡ", "không dùng được", "defect"]
+          "answer": "Với sản phẩm lỗi:\n- Đổi mới ngay trong 7 ngày đầu (lỗi nhà sản xuất)\n- Miễn phí ship đổi trả\n- Hoàn tiền 100% nếu không thể đổi\n- Bảo hành theo chính sách nhà sản xuất\n\nĐể báo lỗi:\n1. Chọn đơn hàng\n2. Chọn 'Sản phẩm lỗi'\n3. Mô tả lỗi và đính kèm ảnh\n4. Đợi xác nhận (thường trong 24h)",
+          "keywords": ["lỗi", "hỏng", "bể", "vỡ", "không dùng được", "defect", "bảo hành"]
         },
         {
           "question": "Khi nào tôi nhận được tiền hoàn?",
-          "answer": "Thời gian hoàn tiền:\n- Qua ví điện tử: 1-3 ngày làm việc\n- Chuyển khoản ngân hàng: 3-5 ngày làm việc\n- Hoàn vào thẻ tín dụng: 5-7 ngày làm việc\nThời gian tính từ khi chúng tôi nhận được hàng hoàn trả và xác nhận đủ điều kiện.",
-          "keywords": ["hoàn tiền", "refund", "tiền về", "chuyển khoản"]
+          "answer": "Thời gian hoàn tiền qua VNPay:\n- Ví VNPay: 1-3 ngày làm việc\n- Tài khoản ngân hàng: 3-5 ngày làm việc\n- Thẻ tín dụng: 5-7 ngày làm việc\n\nThời gian tính từ khi shop xác nhận đơn hoàn trả đủ điều kiện.\nBạn sẽ nhận thông báo khi tiền được hoàn.",
+          "keywords": ["hoàn tiền", "refund", "tiền về", "chuyển khoản", "hoàn lại"]
         }
       ]
     },
@@ -69,55 +80,149 @@
       "questions": [
         {
           "question": "Làm sao để đăng ký tài khoản?",
-          "answer": "Đăng ký tài khoản rất đơn giản:\n1. Click 'Đăng ký' ở góc phải trên cùng\n2. Nhập email/số điện thoại và mật khẩu\n3. Xác nhận qua OTP được gửi về email/SMS\n4. Hoàn tất! Bạn có thể đăng nhập ngay\nHoặc đăng nhập nhanh qua Facebook/Google.",
-          "keywords": ["đăng ký", "tạo tài khoản", "register", "sign up"]
+          "answer": "Đăng ký tài khoản:\n1. Nhấn 'Đăng ký' ở góc phải màn hình\n2. Nhập email và mật khẩu\n3. Nhận mã OTP qua email\n4. Nhập OTP để xác nhận\n5. Hoàn tất đăng ký\n\nSau khi đăng ký, bạn có thể:\n- Đặt hàng nhanh hơn\n- Theo dõi đơn hàng\n- Lưu địa chỉ giao hàng\n- Nhận thông báo ưu đãi",
+          "keywords": ["đăng ký", "tạo tài khoản", "register", "sign up", "OTP"]
         },
         {
           "question": "Quên mật khẩu thì làm sao?",
-          "answer": "Để lấy lại mật khẩu:\n1. Click 'Quên mật khẩu' tại trang đăng nhập\n2. Nhập email/số điện thoại đã đăng ký\n3. Nhận mã OTP qua email/SMS\n4. Nhập OTP và tạo mật khẩu mới\nNếu không nhận được OTP, kiểm tra hộp thư spam hoặc liên hệ hotline.",
-          "keywords": ["quên mật khẩu", "forgot password", "reset password", "đổi mật khẩu"]
+          "answer": "Để lấy lại mật khẩu:\n1. Nhấn 'Quên mật khẩu' tại trang đăng nhập\n2. Nhập email đã đăng ký\n3. Nhận mã OTP qua email (kiểm tra cả hộp thư spam)\n4. Nhập OTP xác nhận\n5. Tạo mật khẩu mới\n\nLưu ý: Mã OTP có hiệu lực trong 5 phút. Nếu không nhận được, bạn có thể yêu cầu gửi lại.",
+          "keywords": ["quên mật khẩu", "forgot password", "reset password", "OTP", "lấy lại mật khẩu"]
+        },
+        {
+          "question": "Làm sao để thay đổi mật khẩu?",
+          "answer": "Để đổi mật khẩu khi đã đăng nhập:\n1. Vào 'Tài khoản của tôi'\n2. Chọn 'Đổi mật khẩu'\n3. Nhận mã OTP qua email\n4. Nhập OTP xác nhận\n5. Nhập mật khẩu mới\n\nYêu cầu mật khẩu:\n- Tối thiểu 8 ký tự\n- Bao gồm chữ và số\n- Nên có ký tự đặc biệt",
+          "keywords": ["đổi mật khẩu", "change password", "thay đổi mật khẩu", "update password"]
+        },
+        {
+          "question": "Làm sao để thay đổi email?",
+          "answer": "Để thay đổi email tài khoản:\n1. Vào 'Tài khoản của tôi'\n2. Chọn 'Thay đổi email'\n3. Nhập email mới\n4. Nhận OTP ở email mới\n5. Xác nhận OTP\n\nEmail dùng để:\n- Đăng nhập\n- Nhận thông báo đơn hàng\n- Nhận OTP xác thực\n- Nhận ưu đãi",
+          "keywords": ["đổi email", "change email", "thay email", "update email"]
         },
         {
           "question": "Thông tin cá nhân có được bảo mật không?",
-          "answer": "Chúng tôi cam kết bảo mật thông tin:\n- Mã hóa SSL 256-bit cho mọi giao dịch\n- Không chia sẻ thông tin với bên thứ 3 khi chưa có sự đồng ý\n- Tuân thủ chính sách bảo mật dữ liệu cá nhân\n- Bạn có quyền yêu cầu xóa dữ liệu cá nhân bất kỳ lúc nào",
-          "keywords": ["bảo mật", "an toàn", "security", "privacy", "thông tin cá nhân"]
+          "answer": "Hệ thống cam kết bảo mật:\n- Mã hóa JWT token cho mọi phiên đăng nhập\n- Redis caching để bảo vệ token\n- OTP xác thực qua email cho các thao tác nhạy cảm\n- Không chia sẻ thông tin với bên thứ 3\n- Role-based access control (ADMIN/USER)\n\nBạn có quyền:\n- Xem thông tin cá nhân\n- Yêu cầu xóa tài khoản\n- Thay đổi thông tin bất kỳ lúc nào",
+          "keywords": ["bảo mật", "an toàn", "security", "privacy", "thông tin cá nhân", "JWT"]
+        }
+      ]
+    },
+    {
+      "id": "address",
+      "name": "Địa chỉ giao hàng",
+      "questions": [
+        {
+          "question": "Làm sao để thêm địa chỉ giao hàng?",
+          "answer": "Để thêm địa chỉ mới:\n1. Vào 'Tài khoản của tôi' > 'Địa chỉ'\n2. Chọn 'Thêm địa chỉ mới'\n3. Nhập thông tin:\n   - Họ tên người nhận\n   - Số điện thoại\n   - Tỉnh/Thành phố\n   - Quận/Huyện\n   - Phường/Xã\n   - Số nhà, tên đường\n4. Chọn 'Đặt làm địa chỉ mặc định' (nếu muốn)\n5. Lưu địa chỉ\n\nLưu ý: Tất cả trường thông tin đều bắt buộc.",
+          "keywords": ["địa chỉ", "thêm địa chỉ", "address", "giao hàng", "nhận hàng"]
+        },
+        {
+          "question": "Địa chỉ mặc định là gì?",
+          "answer": "Địa chỉ mặc định:\n- Tự động được chọn khi đặt hàng\n- Tiết kiệm thời gian không phải chọn lại\n- Có thể thay đổi bất kỳ lúc nào\n- Chỉ có 1 địa chỉ mặc định\n\nĐể đặt làm mặc định:\n1. Vào danh sách địa chỉ\n2. Chọn địa chỉ muốn đặt mặc định\n3. Tick vào 'Đặt làm mặc định'\n4. Lưu thay đổi",
+          "keywords": ["địa chỉ mặc định", "default address", "địa chỉ chính"]
+        },
+        {
+          "question": "Có thể sửa địa chỉ sau khi đặt hàng không?",
+          "answer": "Có thể sửa địa chỉ nếu đơn hàng chưa được xác nhận:\n1. Vào 'Đơn hàng của tôi'\n2. Chọn đơn cần sửa (chỉ với trạng thái CHỜ XÁC NHẬN)\n3. Nhấn 'Sửa thông tin giao hàng'\n4. Cập nhật: Họ tên, SĐT, Địa chỉ\n5. Lưu thay đổi\n\nLưu ý: Không thể sửa nếu đơn đã CHỜ VẬN CHUYỂN hoặc ĐANG GIAO.",
+          "keywords": ["sửa địa chỉ", "thay đổi địa chỉ", "update address", "đổi địa chỉ giao hàng"]
         }
       ]
     },
     {
       "id": "products",
-      "name": "Sản phẩm & Dịch vụ",
+      "name": "Sản phẩm & Tìm kiếm",
       "questions": [
         {
-          "question": "Làm sao để tìm sản phẩm phù hợp?",
-          "answer": "Để tìm sản phẩm dễ dàng:\n- Sử dụng thanh tìm kiếm với từ khóa\n- Lọc theo danh mục, giá, thương hiệu, kích thước\n- Xem phần 'Gợi ý cho bạn' dựa trên lịch sử\n- Đọc đánh giá và rating từ người mua khác\n- Liên hệ tư vấn qua chat hoặc hotline",
-          "keywords": ["tìm sản phẩm", "search", "lọc", "filter", "tìm kiếm"]
+          "question": "Làm sao để tìm sản phẩm?",
+          "answer": "Cách tìm kiếm sản phẩm:\n1. Thanh tìm kiếm: Nhập tên sản phẩm hoặc từ khóa\n2. Lọc nâng cao:\n   - Theo danh mục (Category)\n   - Theo mùa (Season)\n   - Theo nhãn/tag (Label)\n   - Sắp xếp theo: Giá, Tên, Điểm đánh giá\n3. Phân trang: Điều chỉnh số sản phẩm hiển thị/trang\n\nHệ thống sử dụng Elasticsearch để tìm kiếm nhanh và chính xác.",
+          "keywords": ["tìm sản phẩm", "search", "lọc", "filter", "tìm kiếm", "elasticsearch"]
+        },
+        {
+          "question": "Làm sao biết sản phẩm còn hàng?",
+          "answer": "Kiểm tra tình trạng hàng:\n1. Vào trang chi tiết sản phẩm\n2. Chọn Size và Màu\n3. Xem số lượng còn lại hiển thị\n\nNếu:\n- 'Còn hàng': Số lượng > 0\n- 'Hết hàng': Số lượng = 0\n- 'Sắp hết': Số lượng < 10\n\nKhi thêm vào giỏ, hệ thống tự động kiểm tra số lượng tồn kho.",
+          "keywords": ["còn hàng", "hết hàng", "tồn kho", "stock", "quantity", "số lượng"]
         },
         {
           "question": "Sản phẩm có chính hãng không?",
-          "answer": "Cam kết 100% hàng chính hãng:\n- Nhập khẩu trực tiếp từ nhà sản xuất/đại lý ủy quyền\n- Có tem chống hàng giả\n- Bảo hành chính hãng toàn quốc\n- Hoàn tiền 200% nếu phát hiện hàng giả\n- Có hóa đơn VAT đầy đủ",
-          "keywords": ["chính hãng", "authentic", "hàng giả", "hàng fake", "tem"]
-        },
-        {
-          "question": "Sản phẩm được bảo hành như thế nào?",
-          "answer": "Chính sách bảo hành:\n- Bảo hành chính hãng từ nhà sản xuất (6-24 tháng tùy sản phẩm)\n- Bảo hành tại các trung tâm ủy quyền toàn quốc\n- Đổi mới trong 1 tháng nếu lỗi nhà sản xuất\n- Hỗ trợ gửi bảo hành miễn phí qua đường chuyển phát\nGiữ hóa đơn và phiếu bảo hành để được hỗ trợ tốt nhất.",
-          "keywords": ["bảo hành", "warranty", "guarantee", "sửa chữa"]
+          "answer": "Cam kết hàng chính hãng:\n- 100% sản phẩm từ nhà sản xuất/đại lý ủy quyền\n- Có hóa đơn VAT đầy đủ\n- Bảo hành chính hãng\n- Hoàn tiền nếu phát hiện hàng giả\n\nMỗi sản phẩm có:\n- Mã sản phẩm duy nhất\n- Thông tin chi tiết (danh mục, mùa, nhãn)\n- Đánh giá từ người mua",
+          "keywords": ["chính hãng", "authentic", "hàng giả", "hàng fake"]
         }
       ]
     },
     {
-      "id": "promotions",
-      "name": "Khuyến mãi & Ưu đãi",
+      "id": "cart",
+      "name": "Giỏ hàng",
       "questions": [
         {
-          "question": "Làm sao để nhận mã giảm giá?",
-          "answer": "Nhận mã giảm giá qua:\n1. Đăng ký nhận email/SMS khuyến mãi\n2. Theo dõi fanpage Facebook, Zalo Official\n3. Tích điểm khi mua hàng đổi voucher\n4. Mã tự động hiển thị khi đặt hàng (nếu đủ điều kiện)\n5. Chương trình khuyến mãi đặc biệt trong các dịp lễ\nMã giảm giá có thời hạn sử dụng, hãy kiểm tra kỹ điều kiện áp dụng.",
-          "keywords": ["mã giảm giá", "voucher", "coupon", "khuyến mãi", "discount"]
+          "question": "Làm sao để thêm sản phẩm vào giỏ?",
+          "answer": "Để thêm vào giỏ hàng:\n1. Chọn sản phẩm muốn mua\n2. Chọn Size và Màu\n3. Chọn Số lượng\n4. Nhấn 'Thêm vào giỏ'\n\nHệ thống sẽ:\n- Kiểm tra sản phẩm còn hàng\n- Kiểm tra size/màu tồn tại\n- Kiểm tra số lượng đủ\n- Cập nhật điểm sản phẩm (+3 điểm)\n\nBạn có thể xem giỏ hàng bất kỳ lúc nào.",
+          "keywords": ["giỏ hàng", "cart", "thêm giỏ", "add to cart", "mua hàng"]
         },
         {
-          "question": "Có chương trình tích điểm không?",
-          "answer": "Có! Chương trình khách hàng thân thiết:\n- Tích 1 điểm cho mỗi 10.000đ chi tiêu\n- 100 điểm = voucher 100.000đ\n- Điểm tích lũy trong 12 tháng\n- Hạng thành viên: Bạc, Vàng, Kim cương (ưu đãi tăng dần)\n- Sinh nhật được tặng voucher đặc biệt\nĐăng ký tài khoản để bắt đầu tích điểm ngay!",
-          "keywords": ["tích điểm", "point", "loyalty", "thành viên", "membership"]
+          "question": "Làm sao để xem và sửa giỏ hàng?",
+          "answer": "Xem giỏ hàng:\n1. Nhấn icon giỏ hàng ở góc phải\n2. Xem danh sách sản phẩm đã chọn\n3. Có thể:\n   - Thay đổi số lượng\n   - Xóa sản phẩm\n   - Tiếp tục mua sắm\n   - Thanh toán\n\nGiỏ hàng hiển thị:\n- Hình ảnh sản phẩm\n- Tên, size, màu\n- Giá và tổng tiền\n- Phân trang nếu nhiều sản phẩm",
+          "keywords": ["xem giỏ", "sửa giỏ", "cart", "view cart", "update cart"]
+        },
+        {
+          "question": "Sản phẩm trong giỏ có được giữ bao lâu?",
+          "answer": "Sản phẩm trong giỏ hàng:\n- Được lưu liên tục trong tài khoản\n- Không tự động xóa\n- Bạn cần đăng nhập để giữ giỏ hàng\n\nLưu ý:\n- Số lượng có thể thay đổi nếu có người mua trước\n- Giá có thể thay đổi theo chương trình khuyến mãi\n- Nên thanh toán sớm để đảm bảo có hàng",
+          "keywords": ["giỏ hàng", "cart", "lưu giỏ", "expire"]
+        }
+      ]
+    },
+    {
+      "id": "review",
+      "name": "Đánh giá sản phẩm",
+      "questions": [
+        {
+          "question": "Làm sao để đánh giá sản phẩm?",
+          "answer": "Để đánh giá sản phẩm:\n1. Vào 'Đơn hàng của tôi'\n2. Chọn đơn đã GIAO HÀNG THÀNH CÔNG\n3. Nhấn 'Đánh giá'\n4. Chọn số sao (1-5 sao)\n5. Viết nội dung đánh giá (không bắt buộc)\n6. Gửi đánh giá\n\nĐánh giá của bạn sẽ:\n- Hiển thị công khai\n- Giúp người mua khác tham khảo\n- Cập nhật điểm trung bình của sản phẩm",
+          "keywords": ["đánh giá", "review", "rating", "sao", "nhận xét"]
+        },
+        {
+          "question": "Có thể sửa đánh giá không?",
+          "answer": "Có, bạn có thể sửa đánh giá:\n1. Vào 'Đơn hàng của tôi'\n2. Tìm đơn hàng đã đánh giá\n3. Nhấn 'Sửa đánh giá'\n4. Cập nhật số sao hoặc nội dung\n5. Lưu thay đổi\n\nHệ thống sẽ tự động cập nhật:\n- Điểm trung bình sản phẩm\n- Thời gian đánh giá",
+          "keywords": ["sửa đánh giá", "edit review", "update review", "thay đổi đánh giá"]
+        },
+        {
+          "question": "Điểm đánh giá được tính như thế nào?",
+          "answer": "Hệ thống điểm sản phẩm:\n- Thang điểm: 1-5 sao\n- Điểm trung bình = Tổng điểm / Số lượng đánh giá\n- Hiển thị số lượng người đánh giá\n\nNgoài ra, sản phẩm còn có điểm nội bộ dựa trên:\n- Số lượt thêm vào giỏ (+3 điểm/lần)\n- Số lượt hủy đơn (-15 điểm/lần)\n- Điểm này dùng để xếp hạng và gợi ý sản phẩm",
+          "keywords": ["điểm", "rating", "score", "sao", "star"]
+        }
+      ]
+    },
+    {
+      "id": "notification",
+      "name": "Thông báo",
+      "questions": [
+        {
+          "question": "Làm sao để xem thông báo?",
+          "answer": "Xem thông báo:\n1. Nhấn icon chuông ở góc phải màn hình\n2. Xem danh sách thông báo mới nhất\n3. Nhấn vào thông báo để xem chi tiết\n\nThông báo bao gồm:\n- Đơn hàng thay đổi trạng thái\n- Thanh toán thành công/thất bại\n- Đơn hàng sắp hết hạn\n- Ưu đãi đặc biệt\n\nThông báo được gửi real-time qua WebSocket.",
+          "keywords": ["thông báo", "notification", "chuông", "alert"]
+        },
+        {
+          "question": "Thông báo được lưu bao lâu?",
+          "answer": "Chính sách lưu thông báo:\n- Thông báo được lưu trong 60 ngày\n- Tự động xóa thông báo quá 60 ngày (chạy lúc 2:00 AM hàng ngày)\n- Bạn có thể xóa thông báo thủ công bất kỳ lúc nào\n\nPhân trang:\n- Mặc định: 10 thông báo/trang\n- Có thể điều chỉnh số lượng hiển thị",
+          "keywords": ["thông báo", "lưu thông báo", "xóa thông báo", "60 ngày"]
+        },
+        {
+          "question": "Làm sao để xóa thông báo?",
+          "answer": "Xóa thông báo:\n1. Vào danh sách thông báo\n2. Vuốt sang trái thông báo muốn xóa\n3. Nhấn 'Xóa'\n\nHoặc:\n- Nhấn 'Xóa tất cả' để xóa toàn bộ thông báo\n\nThông báo đã xóa không thể khôi phục.",
+          "keywords": ["xóa thông báo", "delete notification", "clear notification"]
+        }
+      ]
+    },
+    {
+      "id": "promotion",
+      "name": "Khuyến mãi",
+      "questions": [
+        {
+          "question": "Có chương trình khuyến mãi nào?",
+          "answer": "Hệ thống hỗ trợ chương trình Sale:\n- Sale theo mùa (Season)\n- Áp dụng tự động khi mua sản phẩm trong chương trình\n- Hiển thị % giảm giá trên sản phẩm\n- Có thời gian bắt đầu và kết thúc\n\nĐể xem sản phẩm đang sale:\n- Lọc theo 'Đang khuyến mãi'\n- Xem nhãn 'Sale' trên sản phẩm\n- Giá gốc bị gạch, hiển thị giá sale",
+          "keywords": ["khuyến mãi", "sale", "giảm giá", "promotion", "discount"]
+        },
+        {
+          "question": "Làm sao biết sản phẩm đang giảm giá?",
+          "answer": "Nhận biết sản phẩm sale:\n1. Có nhãn 'Sale X%' trên ảnh sản phẩm\n2. Giá gốc bị gạch, giá sale màu đỏ\n3. Hiển thị thời gian kết thúc sale\n\nĐể tìm sản phẩm sale:\n- Vào mục 'Khuyến mãi'\n- Lọc theo % giảm giá\n- Sắp xếp theo giá từ thấp đến cao\n\nSale áp dụng tự động khi thanh toán.",
+          "keywords": ["sale", "giảm giá", "khuyến mãi", "promotion"]
         }
       ]
     },
@@ -127,21 +232,41 @@
       "questions": [
         {
           "question": "Liên hệ hỗ trợ qua kênh nào?",
-          "answer": "Bạn có thể liên hệ qua:\n- Hotline: 1900xxxx (8h-22h hàng ngày)\n- Email: support@example.com\n- Chat trực tuyến trên website (9h-21h)\n- Facebook Messenger\n- Zalo Official Account\nChúng tôi cam kết phản hồi trong 24h.",
-          "keywords": ["liên hệ", "contact", "hotline", "email", "hỗ trợ", "support"]
+          "answer": "Bạn có thể liên hệ qua:\n- Chatbot AI trên website (24/7)\n- Gửi email: support@example.com\n- Hotline: 1900xxxx (8h-22h hàng ngày)\n\nChatbot AI có thể:\n- Trả lời câu hỏi thường gặp\n- Hướng dẫn sử dụng hệ thống\n- Tra cứu thông tin đơn hàng\n- Gợi ý sản phẩm phù hợp",
+          "keywords": ["liên hệ", "contact", "hotline", "email", "hỗ trợ", "support", "chatbot"]
         },
         {
-          "question": "Có cửa hàng trực tiếp không?",
-          "answer": "Có! Hệ thống cửa hàng:\n- Hà Nội: 123 Phố Huế, Hai Bà Trưng (8h-21h)\n- TP.HCM: 456 Nguyễn Trãi, Quận 1 (8h-21h)\n- Đà Nẵng: 789 Lê Duẩn, Hải Châu (8h-21h)\nKhách hàng có thể đến trực tiếp để xem sản phẩm, tư vấn, mua hàng hoặc đổi trả.",
-          "keywords": ["cửa hàng", "store", "địa chỉ", "showroom", "offline"]
+          "question": "Chatbot có thể giúp gì?",
+          "answer": "Chatbot AI hỗ trợ:\n- Giải đáp các câu hỏi về:\n  + Đơn hàng\n  + Thanh toán\n  + Đổi trả\n  + Tài khoản\n  + Sản phẩm\n- Hoạt động 24/7\n- Trả lời ngay lập tức\n- Học từ câu hỏi của bạn\n\nNếu chatbot không trả lời được, bạn sẽ được chuyển đến nhân viên hỗ trợ.",
+          "keywords": ["chatbot", "AI", "bot", "tự động", "hỗ trợ"]
+        }
+      ]
+    },
+    {
+      "id": "technical",
+      "name": "Kỹ thuật & Hệ thống",
+      "questions": [
+        {
+          "question": "Hệ thống có những dịch vụ nào?",
+          "answer": "Hệ thống microservices bao gồm:\n- Product Service (Port 7081): Sản phẩm, đơn hàng, giỏ hàng\n- Payment Service (Port 9898): Thanh toán VNPay\n- Identity Service (Port 7071): Đăng nhập, đăng ký\n- Information Service (Port 6066): Thông tin người dùng, địa chỉ\n- Notification Service: Thông báo real-time\n- API Gateway: Điều hướng request\n- Eureka Server (Port 8761): Service registry\n\nTất cả dịch vụ hoạt động độc lập và kết nối qua API Gateway.",
+          "keywords": ["hệ thống", "microservice", "service", "architecture", "port"]
         }
       ]
     }
   ],
   "metadata": {
-    "version": "1.0",
-    "last_updated": "2025-12-15",
+    "version": "2.0",
+    "last_updated": "2025-12-16",
     "language": "vi",
-    "total_questions": 20
+    "total_questions": 45,
+    "system_info": {
+      "payment_methods": ["VNPay"],
+      "order_timeout_hours": 48,
+      "notification_expiry_days": 60,
+      "review_scale": "1-5 stars",
+      "authentication": "JWT + OTP",
+      "real_time": "WebSocket"
+    }
   }
 }
+
