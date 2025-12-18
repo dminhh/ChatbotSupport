@@ -88,16 +88,16 @@ Hoặc liên hệ:
 
         return "\n\n".join(context_parts)
 
-    def _generate_response(self, question: str, context: str) -> str:
+    def _generate_response_stream(self, question: str, context: str):
         """
-        Sử dụng GPT để generate câu trả lời tự nhiên.
+        Sử dụng GPT để generate câu trả lời tự nhiên với streaming.
 
         Args:
             question: Câu hỏi của user
             context: Context từ FAQs
 
-        Returns:
-            Câu trả lời được generate bởi GPT
+        Yields:
+            Từng chunk của câu trả lời
         """
         system_prompt = """Bạn là trợ lý ảo thông minh của một trang thương mại điện tử Việt Nam.
 
@@ -121,32 +121,34 @@ Các FAQs liên quan:
 Hãy trả lời câu hỏi của khách hàng dựa trên các FAQs trên."""
 
         try:
-            response = self.client.chat.completions.create(
+            stream = self.client.chat.completions.create(
                 model=self.model,
                 messages=[
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt}
                 ],
                 temperature=0.7,
-                max_tokens=500
+                max_tokens=500,
+                stream=True
             )
 
-            return response.choices[0].message.content.strip()
+            for chunk in stream:
+                if chunk.choices[0].delta.content is not None:
+                    yield chunk.choices[0].delta.content
 
         except Exception as e:
             print(f"Lỗi khi gọi OpenAI API: {e}")
-            return "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau."
+            yield "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau."
 
-    def chat(self, question: str, debug: bool = False) -> Dict:
+    def chat_stream(self, question: str):
         """
-        Xử lý câu hỏi của user và trả về câu trả lời.
+        Xử lý câu hỏi của user và trả về câu trả lời dạng stream.
 
         Args:
             question: Câu hỏi của user
-            debug: Nếu True, trả về thêm thông tin debug
 
-        Returns:
-            Dictionary chứa response và metadata
+        Yields:
+            Từng chunk của câu trả lời
         """
         # Bước 1 & 2: Vector search tìm top-k FAQs liên quan
         search_results = self.vector_search.search(
@@ -160,29 +162,17 @@ Hãy trả lời câu hỏi của khách hàng dựa trên các FAQs trên."""
             if r['similarity'] >= self.similarity_threshold
         ]
 
-        response_data = {
-            "question": question,
-            "answer": "",
-            "is_confident": False,
-            "search_results": search_results if debug else None
-        }
-
         # Nếu không có FAQ nào đủ relevant, trả về fallback response
         if not relevant_results:
-            response_data["answer"] = self.fallback_response
-            response_data["is_confident"] = False
-            return response_data
+            yield self.fallback_response
+            return
 
         # Bước 3: Build context từ FAQs
         context = self._build_context(relevant_results)
 
-        # Bước 4 & 5: Gửi context + question vào GPT để generate response
-        answer = self._generate_response(question, context)
-
-        response_data["answer"] = answer
-        response_data["is_confident"] = True
-
-        return response_data
+        # Bước 4 & 5: Stream response từ GPT
+        for chunk in self._generate_response_stream(question, context):
+            yield chunk
 
     def rebuild_index(self):
         """Rebuild FAISS index khi knowledge base được cập nhật."""
@@ -233,18 +223,10 @@ def main():
         print(f"❓ Câu hỏi {i}: {question}")
         print("-" * 60)
 
-        result = chatbot.chat(question, debug=True)
-
         print(f"\n💬 Trả lời:")
-        print(result['answer'])
-
-        if result['search_results']:
-            print(f"\n🔍 Debug - Top FAQs tìm được:")
-            for j, res in enumerate(result['search_results'][:3], 1):
-                print(f"  {j}. {res['question'][:50]}... "
-                      f"(similarity: {res['similarity']:.3f})")
-
-        print(f"\n✓ Confidence: {'Cao' if result['is_confident'] else 'Thấp (fallback)'}")
+        for chunk in chatbot.chat_stream(question):
+            print(chunk, end='', flush=True)
+        print()  # Newline sau khi stream xong
 
     print(f"\n{'=' * 60}")
     print("✅ Demo hoàn tất!")

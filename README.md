@@ -40,18 +40,21 @@ Trả về câu trả lời cho user
 ```
 ChatbotSupport/
 ├── src/
-│   ├── app.py              # Flask API
-│   ├── chatbot.py          # Chatbot RAG logic
-│   └── vector_search.py    # FAISS vector search
+│   ├── app.py                    # Flask API
+│   ├── chatbot.py                # Chatbot RAG logic
+│   ├── vector_search.py          # FAISS vector search
+│   └── product_vector_indexer.py # Product vector indexing
 ├── data/
-│   ├── knowledge_base.json # 20 câu FAQ
-│   ├── faiss_index.bin     # FAISS index (auto-generated)
-│   └── metadata.pkl        # Metadata (auto-generated)
-├── .env                    # Environment variables (không push lên git)
-├── .env.example            # Template cho .env
-├── .gitignore              # Git ignore config
-├── requirements.txt        # Python dependencies
-└── README.md               # File này
+│   ├── knowledge_base.json       # 20 câu FAQ
+│   ├── faiss_index.bin           # FAISS index (auto-generated)
+│   └── metadata.pkl              # Metadata (auto-generated)
+├── database/
+│   └── create_product_vectors_table.sql  # SQL script tạo bảng
+├── .env                          # Environment variables (không push lên git)
+├── .env.example                  # Template cho .env
+├── .gitignore                    # Git ignore config
+├── requirements.txt              # Python dependencies
+└── README.md                     # File này
 ```
 
 ## 🚀 Cài đặt
@@ -110,7 +113,71 @@ GPT_MODEL=gpt-4-turbo          # Model GPT sử dụng
 FLASK_HOST=0.0.0.0
 FLASK_PORT=5001
 FLASK_DEBUG=False
+
+
+# Cấu hình Embeddings
+EMBEDDING_MODEL=text-embedding-3-small
+EMBEDDING_DIMENSION=1536
 ```
+
+**1. Tạo bảng `product_vectors`:**
+
+```bash
+mysql -u root -p ecommerce < database/create_product_vectors_table.sql
+```
+
+Hoặc chạy SQL thủ công:
+
+```sql
+CREATE TABLE IF NOT EXISTS product_vectors (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    product_id INT NOT NULL,
+    vector JSON NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_product (product_id)
+);
+
+CREATE INDEX idx_product_id ON product_vectors(product_id);
+CREATE INDEX idx_updated_at ON product_vectors(updated_at);
+```
+
+### 📡 API Endpoints
+
+#### 1. **POST `/build-product-index`** - Build index lần đầu
+
+Vector hóa **TẤT CẢ** products và build FAISS index (force rebuild).
+
+```
+
+**Khi nào dùng:**
+- Lần đầu tiên setup hệ thống
+- Rebuild toàn bộ index khi có thay đổi lớn
+- Khi cần reset lại vectors
+
+---
+
+#### 2. **POST `/update-product-index`** - Update index (incremental)
+
+Chỉ vector hóa **products mới** (chưa có trong `product_vectors`) và update index.
+
+```
+
+**Khi nào dùng:**
+- Sau khi thêm sản phẩm mới vào database
+- Update định kỳ để đồng bộ products mới
+- Tiết kiệm cost OpenAI API (chỉ vector hóa products mới)
+
+---
+
+#### 3. **POST `/chat`** - Chat với bot (streaming)
+
+---
+
+#### 4. **POST `/rebuild-index`** - Rebuild chatbot index
+
+Rebuild FAISS index cho knowledge base (FAQs).
+
 
 ## 👤 Author
 
