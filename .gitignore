@@ -40,6 +40,8 @@ ENV/
 # FAISS Index - file này có thể rebuild nên không cần push
 data/faiss_index.bin
 data/metadata.pkl
+data/product_index.bin
+data/product_metadata.pkl
 
 # Logs
 *.log
