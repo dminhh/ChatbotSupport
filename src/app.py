@@ -306,9 +306,10 @@ def visual_search_endpoint():
             top_k=search_request.top_k
         )
 
-        # Return kết quả (success đã có trong result)
-        status_code = 200 if result.get('success') else 400
-        return jsonify(result), status_code
+        # Return kết quả
+        # 200 OK: Request được xử lý thành công (kể cả khi không tìm thấy sản phẩm)
+        # Chỉ trả 400/500 khi có lỗi thực sự (exception)
+        return jsonify(result), 200
 
     except ValidationError as e:
         return jsonify({

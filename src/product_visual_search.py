@@ -133,12 +133,15 @@ Lưu ý:
             if result and 'product_name' in result and 'keywords' in result and 'description' in result:
                 return result
             else:
-                print(f"⚠️ LLM output thiếu fields: {result}")
+                print(f"⚠️ LLM output thiếu fields!")
+                print(f"Raw content: {content}")
+                print(f"Parsed result: {result}")
+                print(f"Missing fields: {set(['product_name', 'keywords', 'description']) - set(result.keys() if result else [])}")
                 return None
 
         except json.JSONDecodeError as e:
             print(f"❌ Lỗi parse JSON từ LLM: {e}")
-            print(f"Content: {content}")
+            print(f"Raw content from LLM:\n{content}")
             return None
         except Exception as e:
             print(f"❌ Lỗi khi phân tích ảnh: {e}")
@@ -206,7 +209,7 @@ Lưu ý:
             if not llm_output:
                 return {
                     "success": False,
-                    "error": "Không thể phân tích ảnh. Vui lòng thử lại với ảnh khác.",
+                    "error": "Ảnh này không phải sản phẩm thời trang hoặc đồ dùng. Vui lòng thử với ảnh sản phẩm khác (áo, quần, giày, phụ kiện...).",
                     "results": [],
                     "total_results": 0
                 }
