@@ -6,12 +6,14 @@ Endpoints:
 - POST /rebuild-index - Rebuild FAISS index khi cập nhật knowledge base
 - POST /build-product-index - Build product vector index lần đầu (force rebuild)
 - POST /update-product-index - Update product vector index (incremental)
+- POST /visual_search - Visual search (tìm sản phẩm bằng ảnh)
 """
 
 from flask import Flask, request, jsonify, Response, stream_with_context
 from pydantic import BaseModel, Field, ValidationError
 from chatbot import ChatbotRAG
 from product_vector_indexer import ProductVectorIndexer
+from product_visual_search import ProductVisualSearch
 import os
 import json
 from dotenv import load_dotenv
@@ -22,6 +24,11 @@ class ChatRequest(BaseModel):
     """Request model cho /chat endpoint."""
     question: str = Field(..., min_length=1, description="Câu hỏi của user")
     debug: bool = Field(default=False, description="Debug mode")
+
+class VisualSearchRequest(BaseModel):
+    """Request model cho /visual_search endpoint."""
+    image_base64: str = Field(..., min_length=1, description="Ảnh dạng base64 string")
+    top_k: int = Field(default=10, ge=0, le=10, description="Số lượng kết quả (0-10)")
 
 # Load environment variables
 load_dotenv()
@@ -34,6 +41,9 @@ chatbot = None
 
 # Khởi tạo product indexer (singleton)
 product_indexer = None
+
+# Khởi tạo visual search (singleton)
+visual_search = None
 
 
 def get_chatbot():
@@ -56,7 +66,7 @@ def get_chatbot():
 
 
 def get_product_indexer():
-    """Lazy initialization của product indexer."""
+    """Khởi tạo product indexer (lazy loading)."""
     global product_indexer
     if product_indexer is None:
         try:
@@ -77,6 +87,25 @@ def get_product_indexer():
             print(f"❌ Error initializing product indexer: {e}")
             raise
     return product_indexer
+
+
+def get_visual_search():
+    """Khởi tạo visual search (lazy loading)."""
+    global visual_search
+    if visual_search is None:
+        try:
+            indexer = get_product_indexer()
+            visual_search = ProductVisualSearch(
+                product_indexer=indexer,
+                vision_model=os.getenv("VISION_MODEL", "gpt-4o"),
+                max_results=10,
+                score_threshold=float(os.getenv("VISUAL_SEARCH_THRESHOLD", "0.5"))
+            )
+            print("✓ Visual search initialized successfully")
+        except Exception as e:
+            print(f"❌ Error initializing visual search: {e}")
+            raise
+    return visual_search
 
 
 @app.route('/chat', methods=['POST'])
@@ -238,6 +267,63 @@ def update_product_index():
         }), 500
 
 
+@app.route('/visual_search', methods=['POST'])
+def visual_search_endpoint():
+    """
+    Visual search - Tìm kiếm sản phẩm bằng ảnh.
+
+    Request body:
+    {
+        "image_base64": "base64_string...",
+        "top_k": 5  // Optional, default 10, max 10
+    }
+
+    Response:
+    {
+        "success": true,
+        "results": [
+            {
+                "product_id": 123,
+                "title": "Áo sơ mi nam công sở",
+                "score": 0.95,
+                "distance": 0.12
+            }
+        ],
+        "total_results": 5
+    }
+    """
+    try:
+        # Validate request
+        data = request.get_json()
+        search_request = VisualSearchRequest(**data)
+
+        # Get visual search instance
+        vs = get_visual_search()
+
+        # Perform search
+        result = vs.search(
+            image_base64=search_request.image_base64,
+            top_k=search_request.top_k
+        )
+
+        # Return kết quả (success đã có trong result)
+        status_code = 200 if result.get('success') else 400
+        return jsonify(result), status_code
+
+    except ValidationError as e:
+        return jsonify({
+            "success": False,
+            "error": "Invalid request",
+            "details": e.errors()
+        }), 400
+
+    except Exception as e:
+        return jsonify({
+            "success": False,
+            "error": str(e)
+        }), 500
+
+
 if __name__ == '__main__':
     # Lấy config từ environment variables
     host = os.getenv('FLASK_HOST', '0.0.0.0')
@@ -253,6 +339,7 @@ if __name__ == '__main__':
     print("  POST /rebuild-index - Rebuild chatbot index")
     print("  POST /build-product-index - Build product index (force rebuild)")
     print("  POST /update-product-index - Update product index (incremental)")
+    print("  POST /visual_search - Visual search (tìm sản phẩm bằng ảnh)")
     print("=" * 60)
 
     app.run(host=host, port=port, debug=debug)

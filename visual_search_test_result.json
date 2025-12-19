@@ -1,0 +1,36 @@
+{
+  "results": [
+    {
+      "distance": 0.7463,
+      "product_id": 151,
+      "score": 0.5726,
+      "title": "Áo cộc tay nam, áo phông nam tay ngắn cổ tròn Unisex chất thun cotton 4 chiều mềm mại"
+    },
+    {
+      "distance": 0.7822,
+      "product_id": 166,
+      "score": 0.5611,
+      "title": "Set Áo Thun Ngắn Tay Sọc Ngang Quần short Thời Trang đồ bộ thể thao nữ phong cách Hàn Quốc đồ bộ nam simple bộ thể thao nam"
+    },
+    {
+      "distance": 0.8298,
+      "product_id": 20,
+      "score": 0.5465,
+      "title": "Áo thun nữ , áo form vừa đẹp kiểu dáng trẻ trung chất liệu cotton co giãn bốn chiều mềm mại thoải mái khi mặc mỗi ngày"
+    },
+    {
+      "distance": 0.8868,
+      "product_id": 146,
+      "score": 0.53,
+      "title": "Set Áo Thun Ngắn Tay Và Quần Dài Ống Rộng Phong Cách Thể Thao Thời Trang Mùa Hè Cho Nam"
+    },
+    {
+      "distance": 0.9113,
+      "product_id": 142,
+      "score": 0.5232,
+      "title": "Set Áo Thun Ngắn Tay + Quần jeans Phong Cách Hàn Quốc Thời Trang Cho Nam Áo thun nam+Quần bò baggy nam Quần bò trơn Thích hợp cho cả nam và nữ"
+    }
+  ],
+  "success": true,
+  "total_results": 5
+}
