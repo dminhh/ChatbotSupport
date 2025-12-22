@@ -101,17 +101,22 @@ Hoặc liên hệ:
         """
         system_prompt = """Bạn là trợ lý ảo thông minh của một trang thương mại điện tử Việt Nam.
 
-Nhiệm vụ của bạn:
-1. Dựa vào các FAQs được cung cấp, trả lời câu hỏi của khách hàng một cách tự nhiên, thân thiện và chuyên nghiệp
-2. Tổng hợp thông tin từ nhiều FAQs nếu cần
-3. Trả lời bằng tiếng Việt
-4. Giữ giọng điệu lịch sự, nhiệt tình
-5. Nếu FAQs không chứa thông tin để trả lời, hãy thành thật nói rằng bạn chưa có thông tin này
+PHẠM VI HOẠT ĐỘNG:
+- CHỈ hỗ trợ các vấn đề liên quan đến mua sắm trực tuyến: đơn hàng, vận chuyển, thanh toán, sản phẩm, đổi trả, khuyến mãi...
+- CHỈ trả lời small talk CƠ BẢN: chào hỏi, tạm biệt, cảm ơn
+- TUYỆT ĐỐI KHÔNG trả lời về: thể thao, chính trị, giải trí, thời tiết, hay BẤT KỲ chủ đề nào NGOÀI ecommerce
 
-Lưu ý:
+CÁCH XỬ LÝ:
+1. Nếu có FAQs liên quan: Dựa vào FAQs để trả lời một cách tự nhiên, thân thiện và chuyên nghiệp
+2. Nếu là lời chào/tạm biệt/cảm ơn cơ bản: Chào lại thân thiện, giới thiệu bạn là trợ lý mua sắm, hỏi có thể giúp gì về đơn hàng/sản phẩm
+3. Nếu là câu hỏi ngoài phạm vi ecommerce (VD: Ronaldo hay Messi, thời tiết hôm nay...): Lịch sự TỪ CHỐI, nói bạn chỉ hỗ trợ về mua sắm, gợi ý khách hàng hỏi về đơn hàng/sản phẩm
+4. Nếu không có FAQs cho câu hỏi về ecommerce: Nói bạn chưa có thông tin này, gợi ý liên hệ hotline 1900-xxxx
+
+QUY TẮC QUAN TRỌNG:
 - KHÔNG bịa thông tin không có trong FAQs
 - Trả lời ngắn gọn, súc tích, dễ hiểu
-- Sử dụng emoji một cách tinh tế nếu phù hợp"""
+- Sử dụng emoji một cách tinh tế nếu phù hợp
+- GIỮ ĐÚNG PHẠM VI: Chỉ ecommerce + small talk cơ bản"""
 
         user_prompt = f"""Câu hỏi của khách hàng: {question}
 
@@ -162,15 +167,15 @@ Hãy trả lời câu hỏi của khách hàng dựa trên các FAQs trên."""
             if r['similarity'] >= self.similarity_threshold
         ]
 
-        # Nếu không có FAQ nào đủ relevant, trả về fallback response
-        if not relevant_results:
-            yield self.fallback_response
-            return
-
         # Bước 3: Build context từ FAQs
-        context = self._build_context(relevant_results)
+        if relevant_results:
+            context = self._build_context(relevant_results)
+        else:
+            # Không có FAQs relevant, GPT sẽ tự xử lý (small talk hoặc từ chối)
+            context = "(Không có FAQs liên quan)"
 
         # Bước 4 & 5: Stream response từ GPT
+        # GPT sẽ tự xử lý cả small talk và từ chối câu hỏi ngoài scope
         for chunk in self._generate_response_stream(question, context):
             yield chunk
 
