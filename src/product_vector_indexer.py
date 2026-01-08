@@ -1,6 +1,12 @@
 """
 Product Vector Indexer - Vector hóa products và build FAISS index.
 Lưu vectors vào bảng product_vectors trong MySQL.
+
+Flow mới:
+1. Lấy ảnh nền (ANH_NEN) của products từ bảng images
+2. Phân tích ảnh bằng LLM Vision → JSON {product_name, keywords, description}
+3. Tạo text mô tả từ JSON
+4. Embedding text mô tả và lưu vào product_vectors
 """
 
 import json
@@ -84,6 +90,125 @@ class ProductVectorIndexer:
             print(f"❌ Lỗi kết nối MySQL: {e}")
             raise
 
+    def _analyze_image_from_url(self, image_url: str) -> Optional[Dict]:
+        """
+        Phân tích ảnh sản phẩm bằng LLM Vision từ URL.
+        Sử dụng CÙNG format như ProductVisualSearch để đảm bảo consistency.
+
+        Args:
+            image_url: URL công khai của ảnh sản phẩm
+
+        Returns:
+            Dictionary chứa product_name, keywords, description
+            {
+                "product_name": "...",
+                "keywords": [...],
+                "description": "..."
+            }
+            Hoặc None nếu có lỗi
+        """
+        system_prompt = """Bạn là AI chuyên phân tích ảnh sản phẩm thời trang và đồ dùng.
+
+Nhiệm vụ: Phân tích ảnh và trả về thông tin sản phẩm dạng JSON.
+
+Output format (JSON):
+{
+  "product_name": "Tên sản phẩm ngắn gọn",
+  "keywords": ["keyword1", "keyword2", ...],
+  "description": "Mô tả chi tiết sản phẩm"
+}
+
+Yêu cầu:
+- product_name: Tên sản phẩm chính xác, ngắn gọn (VD: "Áo sơ mi tay dài", "Quần jean nam")
+- keywords: 5-10 từ khóa liên quan (tiếng Việt), bao gồm:
+  + Loại sản phẩm
+  + Phong cách (casual, formal, streetwear, etc.)
+  + Màu sắc
+  + Chất liệu (nếu nhìn thấy)
+  + Đặc điểm nổi bật
+  + Từ khóa tìm kiếm phổ biến
+- description: Mô tả chi tiết về sản phẩm (màu sắc, kiểu dáng, phong cách, dịp sử dụng)
+
+Lưu ý:
+- Chỉ trả về JSON, không giải thích thêm
+- Nếu không phải sản phẩm thời trang/đồ dùng, trả về null"""
+
+        try:
+            response = self.client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {
+                        "role": "system",
+                        "content": system_prompt
+                    },
+                    {
+                        "role": "user",
+                        "content": [
+                            {
+                                "type": "text",
+                                "text": "Phân tích ảnh sản phẩm này và trả về JSON như yêu cầu."
+                            },
+                            {
+                                "type": "image_url",
+                                "image_url": {
+                                    "url": image_url
+                                }
+                            }
+                        ]
+                    }
+                ],
+                max_tokens=500,
+                temperature=0.3
+            )
+
+            # Parse JSON response
+            content = response.choices[0].message.content.strip()
+
+            # Xử lý trường hợp LLM trả về markdown code block
+            if content.startswith('```'):
+                content = content.replace('```json', '').replace('```', '').strip()
+
+            result = json.loads(content)
+
+            # Validate output
+            if result and 'product_name' in result and 'keywords' in result and 'description' in result:
+                return result
+            else:
+                print(f"⚠️ LLM output thiếu fields cho {image_url}")
+                return None
+
+        except json.JSONDecodeError as e:
+            print(f"⚠️ Lỗi parse JSON từ LLM cho {image_url}: {e}")
+            return None
+        except Exception as e:
+            print(f"⚠️ Lỗi khi phân tích ảnh {image_url}: {e}")
+            return None
+
+    def _create_description_text(self, llm_output: Dict) -> str:
+        """
+        Tạo text mô tả từ LLM output.
+        Sử dụng CÙNG logic như ProductVisualSearch.create_search_query().
+
+        Args:
+            llm_output: Dictionary từ _analyze_image_from_url()
+
+        Returns:
+            Text mô tả để embedding
+        """
+        product_name = llm_output.get('product_name', '')
+        description = llm_output.get('description', '')
+        keywords = llm_output.get('keywords', [])
+
+        # Kết hợp: product_name + description + top keywords
+        parts = [product_name, description]
+
+        # Thêm top 5 keywords
+        if keywords:
+            parts.append(' '.join(keywords[:5]))
+
+        text = ' '.join(parts)
+        return text
+
     def _create_embeddings_batch(self, texts: List[str]) -> np.ndarray:
         """
         Tạo embeddings cho nhiều texts (batch).
@@ -152,6 +277,12 @@ class ProductVectorIndexer:
         """
         Vector hóa products và lưu vào bảng product_vectors.
 
+        Flow mới:
+        1. Lấy ảnh nền (ANH_NEN) của products từ bảng images
+        2. Phân tích ảnh bằng LLM Vision → text mô tả
+        3. Embedding text mô tả
+        4. Lưu vào product_vectors
+
         Args:
             force_rebuild: Nếu True, vector hóa lại tất cả products.
                           Nếu False, chỉ vector hóa products mới (chưa có trong product_vectors).
@@ -165,7 +296,13 @@ class ProductVectorIndexer:
                 # Vector hóa tất cả products (rebuild toàn bộ)
                 print("🔄 Force rebuild - Vector hóa tất cả products...")
 
-                cursor.execute("SELECT id, title FROM products")
+                # Query để lấy products và ảnh nền
+                query = """
+                    SELECT p.id, p.title, i.src as image_url
+                    FROM products p
+                    LEFT JOIN images i ON p.id = i.product_id AND i.name = 'ANH_NEN'
+                """
+                cursor.execute(query)
                 products = cursor.fetchall()
 
                 if not products:
@@ -174,12 +311,41 @@ class ProductVectorIndexer:
 
                 print(f"📚 Tìm thấy {len(products)} products")
 
-                # Vector hóa batch
-                product_ids = [p['id'] for p in products]
-                titles = [p['title'] for p in products]
+                # Phân tích ảnh và tạo embeddings
+                product_ids = []
+                embeddings_list = []
+                success_count = 0
+                fallback_count = 0
 
-                print("🔄 Đang tạo embeddings...")
-                embeddings = self._create_embeddings_batch(titles)
+                for idx, product in enumerate(products, 1):
+                    product_id = product['id']
+                    title = product['title']
+                    image_url = product.get('image_url')
+
+                    print(f"🔄 [{idx}/{len(products)}] Processing product {product_id}...", end=' ')
+
+                    # Nếu có ảnh nền, phân tích bằng LLM
+                    text_to_embed = None
+                    if image_url:
+                        llm_output = self._analyze_image_from_url(image_url)
+                        if llm_output:
+                            text_to_embed = self._create_description_text(llm_output)
+                            print(f"✅ LLM: {llm_output['product_name'][:50]}")
+                            success_count += 1
+                        else:
+                            print(f"⚠️ LLM failed, fallback to title")
+                            text_to_embed = title
+                            fallback_count += 1
+                    else:
+                        print(f"⚠️ No image, fallback to title")
+                        text_to_embed = title
+                        fallback_count += 1
+
+                    # Tạo embedding
+                    embedding = self._create_embeddings_batch([text_to_embed])[0]
+
+                    product_ids.append(product_id)
+                    embeddings_list.append(embedding)
 
                 # Xóa tất cả vectors cũ
                 cursor.execute("DELETE FROM product_vectors")
@@ -189,21 +355,24 @@ class ProductVectorIndexer:
                     INSERT INTO product_vectors (product_id, vector)
                     VALUES (%s, %s)
                 """
-                for product_id, embedding in zip(product_ids, embeddings):
+                for product_id, embedding in zip(product_ids, embeddings_list):
                     vector_json = json.dumps(embedding.tolist())
                     cursor.execute(insert_query, (product_id, vector_json))
 
                 connection.commit()
-                print(f"✅ Đã vector hóa và lưu {len(products)} products")
+                print(f"\n✅ Đã vector hóa và lưu {len(products)} products")
+                print(f"   - LLM Vision: {success_count}")
+                print(f"   - Fallback (title): {fallback_count}")
 
             else:
                 # Chỉ vector hóa products mới
                 print("🔄 Incremental update - Chỉ vector hóa products mới...")
 
                 query = """
-                    SELECT p.id, p.title
+                    SELECT p.id, p.title, i.src as image_url
                     FROM products p
                     LEFT JOIN product_vectors pv ON p.id = pv.product_id
+                    LEFT JOIN images i ON p.id = i.product_id AND i.name = 'ANH_NEN'
                     WHERE pv.id IS NULL
                 """
                 cursor.execute(query)
@@ -212,23 +381,55 @@ class ProductVectorIndexer:
                 if new_products:
                     print(f"📚 Tìm thấy {len(new_products)} products mới")
 
-                    product_ids = [p['id'] for p in new_products]
-                    titles = [p['title'] for p in new_products]
+                    # Phân tích ảnh và tạo embeddings
+                    product_ids = []
+                    embeddings_list = []
+                    success_count = 0
+                    fallback_count = 0
 
-                    print("🔄 Đang tạo embeddings...")
-                    embeddings = self._create_embeddings_batch(titles)
+                    for idx, product in enumerate(new_products, 1):
+                        product_id = product['id']
+                        title = product['title']
+                        image_url = product.get('image_url')
+
+                        print(f"🔄 [{idx}/{len(new_products)}] Processing product {product_id}...", end=' ')
+
+                        # Nếu có ảnh nền, phân tích bằng LLM
+                        text_to_embed = None
+                        if image_url:
+                            llm_output = self._analyze_image_from_url(image_url)
+                            if llm_output:
+                                text_to_embed = self._create_description_text(llm_output)
+                                print(f"✅ LLM: {llm_output['product_name'][:50]}")
+                                success_count += 1
+                            else:
+                                print(f"⚠️ LLM failed, fallback to title")
+                                text_to_embed = title
+                                fallback_count += 1
+                        else:
+                            print(f"⚠️ No image, fallback to title")
+                            text_to_embed = title
+                            fallback_count += 1
+
+                        # Tạo embedding
+                        embedding = self._create_embeddings_batch([text_to_embed])[0]
+
+                        product_ids.append(product_id)
+                        embeddings_list.append(embedding)
 
                     # Insert vectors
                     insert_query = """
                         INSERT INTO product_vectors (product_id, vector)
                         VALUES (%s, %s)
                     """
-                    for product_id, embedding in zip(product_ids, embeddings):
+                    for product_id, embedding in zip(product_ids, embeddings_list):
                         vector_json = json.dumps(embedding.tolist())
                         cursor.execute(insert_query, (product_id, vector_json))
 
                     connection.commit()
-                    print(f"✅ Đã vector hóa và lưu {len(new_products)} products mới")
+                    print(f"\n✅ Đã vector hóa và lưu {len(new_products)} products mới")
+                    print(f"   - LLM Vision: {success_count}")
+                    print(f"   - Fallback (title): {fallback_count}")
                 else:
                     print("✅ Không có products mới nào cần vector hóa")
 
